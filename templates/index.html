@@ -48,8 +48,10 @@
     {% endif %}
 
     {% if suggestion %}
-        <h3>💜 Wellness Suggestion</h3>
-        <p>{{ suggestion }}</p>
+        <div class="suggestion-box">
+    <h3>🌿 Wellness Tip</h3>
+    <p>{{ suggestion }}</p>
+</div>
     {% endif %}
 
     <!-- MENSTRUAL TRACKING -->
@@ -71,6 +73,20 @@
     <p>{{ cycle_phase }}</p>
 </div>
     {% endif %}
+    {% if recommended_hours %}
+<div class="study-card">
+    <h3>📚 Today’s Study Plan</h3>
+    <p>{{ cycle_phase }}</p>
+    <p><strong>Recommended Study Time:</strong> {{ recommended_hours }}</p>
+</div>
+{% endif %}
+{% if hydration_alert %}
+<div class="hydration-alert">
+    💧 It’s your menstrual phase — stay hydrated and don’t overwork 💜
+</div>
+{% endif %}
+
+
 
 </body>
 </html>

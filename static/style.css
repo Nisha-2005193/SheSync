@@ -124,4 +124,22 @@ margin-top: 20px;
     color: #444;
     line-height: 1.6;
 }
+/* 🌿 Wellness Suggestion Box */
+.suggestion-box {
+    margin-top: 15px;
+    padding: 18px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #e0f7f4, #f0fffd);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+}
+
+.suggestion-box h3 {
+    margin-bottom: 8px;
+    color: #1b8a84;
+}
+
+.suggestion-box p {
+    color: #444;
+    line-height: 1.6;
+}
 
