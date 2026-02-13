@@ -4,7 +4,63 @@
     <title>SheSync</title>
 </head>
 <body>
+
     <h1>🌸 Welcome to SheSync</h1>
-    <p>Backend is working 👑</p>
+    <p>Your productivity + wellness companion 👑</p>
+
+    <!-- TASK SECTION -->
+    <h2>🧠 Today's Tasks</h2>
+
+    <form action="/add_task" method="POST">
+        <input type="text" name="task" placeholder="Add a task..." required>
+        <button type="submit">Add</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                {{ task.task_text }}
+                <a href="/delete_task/{{ task.id }}">❌</a>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <!-- MOOD SECTION -->
+    <h2>🌿 How are you feeling today?</h2>
+
+    <form action="/save_mood" method="POST">
+        <button name="mood" value="Happy">😊 Happy</button>
+        <button name="mood" value="Sad">😔 Sad</button>
+        <button name="mood" value="Stressed">😣 Stressed</button>
+        <button name="mood" value="Calm">😌 Calm</button>
+    </form>
+
+    {% if mood %}
+        <p>Today's mood: {{ mood.mood }}</p>
+    {% endif %}
+
+    {% if suggestion %}
+        <h3>💜 Wellness Suggestion</h3>
+        <p>{{ suggestion }}</p>
+    {% endif %}
+
+    <!-- MENSTRUAL TRACKING -->
+    <h2>🌸 Menstrual Tracking</h2>
+
+    <form action="/save_cycle" method="POST">
+        <label>Last Period Date:</label>
+        <input type="date" name="last_period" required>
+
+        <label>Cycle Length (days):</label>
+        <input type="number" name="cycle_length" required>
+
+        <button type="submit">Save</button>
+    </form>
+
+    {% if cycle_phase %}
+        <h3>Current Cycle Insight</h3>
+        <p>{{ cycle_phase }}</p>
+    {% endif %}
+
 </body>
 </html>

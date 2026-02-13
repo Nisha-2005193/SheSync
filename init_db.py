@@ -22,7 +22,18 @@ CREATE TABLE IF NOT EXISTS moods (
 )
 """)
 
+# PERIOD TRACKING TABLE
+c.execute("""
+CREATE TABLE IF NOT EXISTS cycle (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    last_period_date TEXT,
+    cycle_length INTEGER
+)
+""")
+
+
 conn.commit()
 conn.close()
 
 print("Database created successfully 💜")
+
