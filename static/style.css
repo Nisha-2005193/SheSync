@@ -1,0 +1,100 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f5f0ff;
+    margin: 0;
+    padding: 0;
+}
+
+/* HEADER */
+header {
+    background: linear-gradient(135deg, #d8c8ff, #e9ddff);
+    text-align: center;
+    padding: 25px;
+    border-bottom: 2px solid #cbb4ff;
+}
+
+header h1 {
+    margin: 0;
+    color: #5a3eb1;
+}
+
+header p {
+    margin: 5px 0;
+    font-weight: 500;
+}
+
+header small {
+    color: #555;
+}
+
+/* LAYOUT */
+.container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+}
+
+.left, .right {
+    flex: 1;
+}
+
+/* CARDS */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+/* INPUT */
+input[type="text"] {
+    padding: 8px;
+    width: 70%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* BUTTONS */
+button {
+    padding: 8px 12px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background-color: #a98fff;
+    color: white;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+button:hover {
+    background-color: #8b6efc;
+}
+
+/* TASK LIST */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* TIMER */
+#timer {
+    font-size: 40px;
+    color: #5a3eb1;
+}
