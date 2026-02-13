@@ -2,6 +2,11 @@
 <html>
 <head>
     <title>SheSync</title>
+<!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- Connect CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
@@ -9,7 +14,10 @@
     <p>Your productivity + wellness companion 👑</p>
 
     <!-- TASK SECTION -->
-    <h2>🧠 Today's Tasks</h2>
+<div class="card">
+<h2>Today's Tasks</h2>
+</div>
+
 
     <form action="/add_task" method="POST">
         <input type="text" name="task" placeholder="Add a task..." required>
@@ -58,8 +66,10 @@
     </form>
 
     {% if cycle_phase %}
-        <h3>Current Cycle Insight</h3>
-        <p>{{ cycle_phase }}</p>
+    <div class="cycle-insight">
+    <h3>🌸 Cycle Insight</h3>
+    <p>{{ cycle_phase }}</p>
+</div>
     {% endif %}
 
 </body>
