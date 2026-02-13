@@ -16,6 +16,7 @@ def index():
     conn = get_db_connection()
     today = str(datetime.today().date())
 
+    # Fetch tasks & mood
     tasks = conn.execute(
         "SELECT * FROM tasks WHERE date = ?",
         (today,)
@@ -26,29 +27,51 @@ def index():
         (today,)
     ).fetchone()
 
+    # Mood suggestion
+    suggestion = None
+    if mood:
+        mood_value = mood["mood"].strip().lower()
+        if "stressed" in mood_value:
+            suggestion = "Take a 5-minute breathing break 🌿"
+        elif "happy" in mood_value:
+            suggestion = "You’re glowing today ✨ Try completing your toughest task!"
+        elif "sad" in mood_value:
+            suggestion = "Be gentle with yourself 💜 Do one small easy task."
+        elif "calm" in mood_value:
+            suggestion = "Perfect energy for planning ahead 📒"
+
+    # Cycle logic
     cycle_info = conn.execute(
         "SELECT * FROM cycle ORDER BY id DESC LIMIT 1"
     ).fetchone()
 
     cycle_phase = None
+    recommended_hours = None
+    hydration_alert = False
 
     if cycle_info:
-        last_period = datetime.strptime(
-            cycle_info["last_period_date"], "%Y-%m-%d"
-        )
-        cycle_length = cycle_info["cycle_length"]
+        last_period = datetime.strptime(cycle_info["last_period_date"], "%Y-%m-%d")
+        cycle_length = int(cycle_info["cycle_length"])  # ensure integer
 
         days_since = (datetime.today() - last_period).days
         day_in_cycle = days_since % cycle_length
 
         if day_in_cycle <= 5:
             cycle_phase = "Menstrual Phase 🌸 – Focus on rest and light tasks."
+            recommended_hours = "1–2 hours"
+            hydration_alert = True
+
         elif day_in_cycle <= 13:
             cycle_phase = "Follicular Phase 🌿 – Great time to start new projects!"
+            recommended_hours = "3–4 hours"
+
         elif day_in_cycle <= 16:
             cycle_phase = "Ovulation Phase ✨ – Best for communication & collaboration."
+            recommended_hours = "3–5 hours"
+
         else:
             cycle_phase = "Luteal Phase 🌙 – Good time for planning and organizing."
+            recommended_hours = "2–3 hours"
 
     conn.close()
 
@@ -56,7 +79,10 @@ def index():
         "index.html",
         tasks=tasks,
         mood=mood,
-        cycle_phase=cycle_phase
+        cycle_phase=cycle_phase,
+        suggestion=suggestion,
+        recommended_hours=recommended_hours,
+        hydration_alert=hydration_alert
     )
 
 # -------- ADD TASK --------
