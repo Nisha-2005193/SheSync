@@ -12,7 +12,11 @@
 
     <h1>🌸 Welcome to SheSync</h1>
     <p>Your productivity + wellness companion 👑</p>
-
+    {% if hydration_alert %}
+<div class="hydration-alert">
+    💧 It’s your menstrual phase — stay hydrated and don’t overwork 💜
+</div>
+{% endif %}
     <!-- TASK SECTION -->
 <div class="card">
 <h2>Today's Tasks</h2>
@@ -80,11 +84,7 @@
     <p><strong>Recommended Study Time:</strong> {{ recommended_hours }}</p>
 </div>
 {% endif %}
-{% if hydration_alert %}
-<div class="hydration-alert">
-    💧 It’s your menstrual phase — stay hydrated and don’t overwork 💜
-</div>
-{% endif %}
+
 
 
 
