@@ -1,14 +1,54 @@
 from datetime import datetime,timedelta
 from flask import Flask, render_template, request, redirect
 import sqlite3
+import os
 
 app = Flask(__name__)
 
+# -------- DATABASE SETUP FOR VERCEL --------
+DATABASE = os.getenv("DATABASE_PATH", "/tmp/database.db")
+
 # -------- DATABASE CONNECTION --------
 def get_db_connection():
-    conn = sqlite3.connect("database.db")
+    conn = sqlite3.connect(DATABASE)
     conn.row_factory = sqlite3.Row
     return conn
+
+# Initialize database on startup
+def init_db():
+    if not os.path.exists(DATABASE):
+        conn = sqlite3.connect(DATABASE)
+        c = conn.cursor()
+        
+        c.execute("""
+        CREATE TABLE IF NOT EXISTS tasks (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            task_text TEXT NOT NULL,
+            is_completed INTEGER DEFAULT 0,
+            date TEXT
+        )
+        """)
+        
+        c.execute("""
+        CREATE TABLE IF NOT EXISTS moods (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            mood TEXT,
+            date TEXT
+        )
+        """)
+        
+        c.execute("""
+        CREATE TABLE IF NOT EXISTS cycle (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            last_period_date TEXT,
+            cycle_length INTEGER
+        )
+        """)
+        
+        conn.commit()
+        conn.close()
+
+init_db()
 
 # -------- HOME --------
 @app.route("/")
@@ -51,8 +91,7 @@ def index():
 
     if cycle_info:
         last_period = datetime.strptime(cycle_info["last_period_date"], "%Y-%m-%d")
-        cycle_length = int(cycle_info["cycle_length"])  # ensure integer
-
+        cycle_length = int(cycle_info["cycle_length"])
         days_since = (datetime.today() - last_period).days
         day_in_cycle = days_since % cycle_length
 
@@ -60,20 +99,20 @@ def index():
             cycle_phase = "Menstrual Phase 🌸 – Focus on rest and light tasks."
             recommended_hours = "1–2 hours"
             hydration_alert = True
-
         elif day_in_cycle <= 13:
             cycle_phase = "Follicular Phase 🌿 – Great time to start new projects!"
             recommended_hours = "3–4 hours"
-
         elif day_in_cycle <= 16:
             cycle_phase = "Ovulation Phase ✨ – Best for communication & collaboration."
             recommended_hours = "3–5 hours"
-
         else:
             cycle_phase = "Luteal Phase 🌙 – Good time for planning and organizing."
             recommended_hours = "2–3 hours"
 
     conn.close()
+
+    # ✅ Define daily_hydration_alert here
+    daily_hydration_alert = True  # always show the daily reminder
 
     return render_template(
         "index.html",
@@ -82,8 +121,10 @@ def index():
         cycle_phase=cycle_phase,
         suggestion=suggestion,
         recommended_hours=recommended_hours,
-        hydration_alert=hydration_alert
+        hydration_alert=hydration_alert,
+        daily_hydration_alert=daily_hydration_alert
     )
+
 
 # -------- ADD TASK --------
 @app.route("/add_task", methods=["POST"])
