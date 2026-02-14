@@ -14,9 +14,14 @@
     <p>Your productivity + wellness companion 👑</p>
     {% if hydration_alert %}
 <div class="hydration-alert">
-    💧 It’s your menstrual phase — stay hydrated and don’t overwork 💜
+    💧 It’s your menstrual phase — reduce study load & stay hydrated 💜
+</div>
+{% elif daily_hydration_alert %}
+<div class="hydration-alert">
+    💧 Don’t forget to drink water today! Aim for 8 glasses 💜
 </div>
 {% endif %}
+
     <!-- TASK SECTION -->
 <div class="card">
 <h2>Today's Tasks</h2>
@@ -84,9 +89,26 @@
 </div>
 {% endif %}
 
+<div id="water-reminder" class="hydration-alert" style="display:none;">
+    💧 Time to drink water! Stay hydrated 💜
+</div>
+<!-- TIMER SECTION -->
+<div class="card">
+    <h2>⏱ Pomodoro Timer</h2>
+    <div id="timer">25:00</div>
+    <div id="timerMessage" style="margin-top:10px; color:#b03060;"></div>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="pauseTimer()">Pause</button>
+    <button onclick="resetTimer()">Reset</button>
+</div>
 
+<!-- WATER COUNTER -->
+<div class="card">
+    <h2>💧 Water Tracker</h2>
+    <p>Glasses drank today: <span id="waterCount">0</span>/8</p>
+    <button onclick="addWater()">Drink Water 💧</button>
+</div>
 
-
+<script src="{{ url_for('static', filename='script.js') }}"></script>
 </body>
 </html>
-<script src="{{ url_for('static', filename='script.js') }}"></script>

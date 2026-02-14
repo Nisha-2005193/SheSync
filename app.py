@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime,timedelta
 from flask import Flask, render_template, request, redirect
 import sqlite3
 
@@ -151,6 +151,8 @@ def save_cycle():
         "INSERT INTO cycle (last_period_date, cycle_length) VALUES (?, ?)",
         (last_period, cycle_length)
     )
+# inside index() before conn.close()
+    daily_hydration_alert = True  # always show daily water reminder
 
     conn.commit()
     conn.close()
