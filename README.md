@@ -19,8 +19,20 @@ SheSync is a smart productivity and wellness app designed to help female student
 
 ### The Problem statement
 Students often focus heavily on academics while neglecting:
+
+Mental health
+
+Hydration
+
+Sleep quality
+
+Physical activity
+
+Menstrual wellness
+
+There is a lack of simple tools that combine productivity and personal wellness in one interface
 ### The Solution
-[How are you solving it?]
+SheSync merges task management with wellness tracking in a minimal, student-friendly platform
 
 ---
 
