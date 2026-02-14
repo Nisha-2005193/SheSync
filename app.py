@@ -192,8 +192,6 @@ def save_cycle():
         "INSERT INTO cycle (last_period_date, cycle_length) VALUES (?, ?)",
         (last_period, cycle_length)
     )
-# inside index() before conn.close()
-    daily_hydration_alert = True  # always show daily water reminder
 
     conn.commit()
     conn.close()
@@ -201,4 +199,7 @@ def save_cycle():
     return redirect("/")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    try:
+        app.run(debug=False)
+    except Exception as e:
+        print(f"Error starting app: {e}")
