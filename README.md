@@ -82,6 +82,11 @@ List the key features of your project:
 ### For Software:
 
 #### Screenshots (Add at least 3)
+<p align="center">
+  <img src="./img.png" alt="Project Banner" width="100%">
+</p>
+
+<img width="1920" height="1080" alt="Screenshot 2026-02-14 071949" src="https://github.com/user-attachments/assets/57da31fd-a069-404f-ba6c-f73bdaf688c2" />
 
 ![Screenshot1](Add screenshot 1 here with proper name)
 *Add caption explaining what this shows*
